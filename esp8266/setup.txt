@@ -1,0 +1,7 @@
+1. Install Arduino Environment
+2. Open you IDE and click on File -> Preferences.
+3. In Aditional Boards Manager URLs add this line and click on “OK”: “http://arduino.esp8266.com/stable/package_esp8266com_index.json”
+4. Open Boards Manager from Tools -> Board menu and install esp8266 platform.
+5. Select the ESP8266 board from Tools > Board > Generic ESP8266 Module.
+6. Open Sketch --> Include library --> Manage libraries
+7. Install the PubSubclient library
