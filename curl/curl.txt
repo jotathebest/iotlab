@@ -1,0 +1,56 @@
+# Install curl
+
+sudo apt-get install curl
+
+# Create a device
+
+name: Device's name
+description: Device's description
+context: General key-value dictionary to store data different to numerical values
+
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Water Tank", "description": "esto es una descripcion", "context": {"customer": "ABC Systems"}}' "https://industrial.api.ubidots.com/api/v1.6/datasources/?token=TOKEN"
+
+# Send data to an existing device
+
+Endpoint: http://industrial.api.ubidots.com/api/v1.6/devices/{LABEL_DEVICE}/{VARIABLE_LABEL}/values
+
+Payload Examples:
+    - {"value" : 2}  --> Single value
+    - [{"value": 10, "timestamp":1464661369000}, {"value": 12, "timestamp":1464661369999}]  --> Multiple values
+    - {"value" : 2, "context": {"position": {"lat": 6.1, "lng": -35.1}}}
+
+curl -X POST -H "Content-Type: application/json" -d '{"value": 2}' "https://industrial.api.ubidots.com/api/v1.6/devices/water-tank/level/values/?token=TOKEN"
+
+curl -X POST -H "Content-Type: application/json" -d '[{"value": 10, "timestamp":1464661369000}, {"value": 12, "timestamp":1464661369999}]' "https://industrial.api.ubidots.com/api/v1.6/devices/water-tank/level/values/?token=TOKEN"
+
+curl -X POST -H "Content-Type: application/json" -d '{"value" : 2, "context": {"lat": 6.1, "lng": -35.1}}' "https://industrial.api.ubidots.com/api/v1.6/devices/water-tank/position/values/?token=TOKEN"
+
+# Exercise:
+
+Send two dots with different dates that include the device's position
+
+# Get Data from the server
+
+Endpoint: http://industrial.api.ubidots.com/api/v1.6/devices/{LABEL_DEVICE}/{VARIABLE_LABEL}/values
+
+# Obtain last value
+
+curl -X GET "http://industrial.api.ubidots.com/api/v1.6/devices/water-tank/level/lv/?token=TOKEN"
+
+# Obtain last two values
+
+curl -X GET "http://industrial.api.ubidots.com/api/v1.6/devices/water-tank/level/?token=TOKEN&page_size=2"
+
+# Exercise
+
+Send data with three dates: One month ago, one day ago and time now. Then, implement a GET request to obtain only data since one day ago.
+
+# Delete Values
+
+Endpoint: http://things.ubidots.com/api/v1.6/variables/{VAR_ID}/values/{START}/{END}/
+
+curl -X DELETE "http://industrial.api.ubidots.com/api/v1.6/variables/561ecb647625425fd0dfec9c/values/1447136223927/1449419580541/?token=MtRbM7ipKUsjRh6RwJE0ofIQo0KqoG"
+
+# Exercise
+
+Delete the last two values of any of your variables.
